@@ -1,0 +1,19 @@
+package com.example.giphyapp
+
+import com.google.gson.annotations.SerializedName
+
+data class DataDto(
+    @SerializedName("data") val result: List<DataObject>
+)
+
+data class DataObject(
+    @SerializedName("images") val images: DataImage
+)
+
+data class DataImage(
+    @SerializedName("original") val originalImage: OriginalImage
+)
+
+data class OriginalImage(
+    val url: String
+)
