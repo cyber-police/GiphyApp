@@ -52,8 +52,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("com.google.dagger:hilt-android:2.47")
-    implementation(libs.navigation.fragment.ktx)
-    implementation(libs.navigation.ui.ktx)
     kapt("com.google.dagger:hilt-compiler:2.47")
 
     implementation(libs.core.ktx)
