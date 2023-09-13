@@ -1,9 +1,12 @@
 package com.example.giphyapp
 
-import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface GifService {
-    @GET("gifs/trending?api_key=5uWKGke21c6B4Z7YnXWhfiIcRY3oqnko")
-    suspend fun getGifs(): Response<DataDto>
+    @GET("v1/gifs/trending")
+    suspend fun getGifs(
+        @Query("api_key") apiKey: String,
+        @Query("offset") offset: Int
+    ): DataDto<DataObject>
 }

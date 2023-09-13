@@ -1,12 +1,23 @@
 package com.example.giphyapp
 
-import retrofit2.Response
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GifRepository @Inject constructor(
     private val gifService: GifService
 ) {
-    suspend fun getGifs(): Response<DataDto> {
-        return gifService.getGifs()
+    fun getGifs(): Flow<PagingData<DataObject>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 50,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                GifsPagingSource(gifService)
+            }
+        ).flow
     }
 }

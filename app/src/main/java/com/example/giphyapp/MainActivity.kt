@@ -1,13 +1,19 @@
 package com.example.giphyapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.giphyapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), GiphyRecyclerViewAdapter.OnItemClickListener {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -22,35 +28,25 @@ class MainActivity : AppCompatActivity(), GiphyRecyclerViewAdapter.OnItemClickLi
         val view = binding.root
         setContentView(view)
 
-        binding.giphyRv.layoutManager =
-            GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        binding.giphyRv.layoutManager = layoutManager
 
         gifViewModel = ViewModelProvider(this, gifViewModelFactory)[GifViewModel::class.java]
 
-        val gifs = mutableListOf<DataObject>()
-        val adapter = GiphyRecyclerViewAdapter(this, gifs, this)
-        binding.giphyRv.adapter = adapter
-
-        gifViewModel.dataResult.observe(this) {
-            when (it) {
-                is DataResult.Success -> {
-                    gifs.addAll(it.data)
-                    adapter.notifyDataSetChanged()
-                }
-
-                is DataResult.Loading -> {
-
-                }
-
-                is DataResult.Error -> {
-
-                }
+        lifecycleScope.launch {
+            gifViewModel.getGifs().collectLatest { gifs ->
+                val adapter = GiphyRecyclerViewAdapter(this@MainActivity, gifs)
+                binding.giphyRv.adapter = adapter
+                adapter.setOnItemClickListener(object :
+                    GiphyRecyclerViewAdapter.OnItemClickListener {
+                    override fun onItemClick(position: Int) {
+                        val intent = Intent(this@MainActivity, ChosenGifActivity::class.java)
+                        intent.putExtra("gif", adapter.getItemAtPosition(position)?.url)
+                        startActivity(intent)
+                    }
+                })
             }
         }
-        gifViewModel.getGifs()
-    }
-
-    override fun onItemClick(gifs: String) {
-
     }
 }

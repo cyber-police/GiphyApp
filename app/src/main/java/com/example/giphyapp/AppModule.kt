@@ -14,7 +14,7 @@ class AppModule {
     @Provides
     fun provideGifService(): GifService {
         return Retrofit.Builder()
-            .baseUrl("api.giphy.com/v1/gifs/trending")
+            .baseUrl("https://api.giphy.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(GifService::class.java)

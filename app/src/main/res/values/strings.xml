@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GiphyApp</string>
+    <string name="title_activity_chosen_gif">ChosenGifActivity</string>
 </resources>

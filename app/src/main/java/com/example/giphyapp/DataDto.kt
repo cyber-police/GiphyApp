@@ -2,7 +2,7 @@ package com.example.giphyapp
 
 import com.google.gson.annotations.SerializedName
 
-data class DataDto(
+data class DataDto<DataObject>(
     @SerializedName("data") val result: List<DataObject>
 )
 
@@ -15,5 +15,6 @@ data class DataImage(
 )
 
 data class OriginalImage(
-    val url: String
+    val url: String,
+    val width: String
 )
