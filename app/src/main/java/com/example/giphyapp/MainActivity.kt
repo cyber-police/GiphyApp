@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.map
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.giphyapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,18 +35,21 @@ class MainActivity : AppCompatActivity() {
 
         gifViewModel = ViewModelProvider(this, gifViewModelFactory)[GifViewModel::class.java]
 
+        val adapter = GiphyRecyclerViewAdapter(this@MainActivity)
+        binding.giphyRv.adapter = adapter
+
+        adapter.setOnItemClickListener(object :
+            GiphyRecyclerViewAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val intent = Intent(this@MainActivity, ChosenGifActivity::class.java)
+                intent.putExtra("gif", adapter.getItemAtPosition(position)?.url)
+                startActivity(intent)
+            }
+        })
+
         lifecycleScope.launch {
             gifViewModel.getGifs().collectLatest { gifs ->
-                val adapter = GiphyRecyclerViewAdapter(this@MainActivity, gifs)
-                binding.giphyRv.adapter = adapter
-                adapter.setOnItemClickListener(object :
-                    GiphyRecyclerViewAdapter.OnItemClickListener {
-                    override fun onItemClick(position: Int) {
-                        val intent = Intent(this@MainActivity, ChosenGifActivity::class.java)
-                        intent.putExtra("gif", adapter.getItemAtPosition(position)?.url)
-                        startActivity(intent)
-                    }
-                })
+                adapter.submitData(gifs)
             }
         }
     }

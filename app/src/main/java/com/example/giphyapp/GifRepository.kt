@@ -12,7 +12,7 @@ class GifRepository @Inject constructor(
     fun getGifs(): Flow<PagingData<DataObject>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 50,
+                pageSize = 10,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {

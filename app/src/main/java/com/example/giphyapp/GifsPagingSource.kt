@@ -21,7 +21,7 @@ class GifsPagingSource(
                 if (gifs.isEmpty()) {
                     null
                 } else {
-                    pageIndex + (params.loadSize / 50)
+                    pageIndex + (params.loadSize / 10)
                 }
             LoadResult.Page(
                 data = gifs,
