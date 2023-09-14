@@ -1,7 +1,8 @@
-package com.example.giphyapp
+package com.example.giphyapp.feature.presentation.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.giphyapp.feature.data.repository.GifRepository
 import javax.inject.Inject
 
 class GifViewModelFactory @Inject constructor(

@@ -1,5 +1,8 @@
-package com.example.giphyapp
+package com.example.giphyapp.di
 
+import com.example.giphyapp.feature.data.repository.GifRepository
+import com.example.giphyapp.feature.data.remote.api.GifService
+import com.example.giphyapp.feature.presentation.ui.GifViewModelFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(ActivityComponent::class)
-class AppModule {
+object AppModule {
     @Provides
     fun provideGifService(): GifService {
         return Retrofit.Builder()

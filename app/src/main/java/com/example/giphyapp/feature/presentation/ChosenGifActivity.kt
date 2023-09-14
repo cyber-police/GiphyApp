@@ -1,4 +1,4 @@
-package com.example.giphyapp
+package com.example.giphyapp.feature.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

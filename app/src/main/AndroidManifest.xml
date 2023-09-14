@@ -16,12 +16,12 @@
         android:theme="@style/Theme.GiphyApp"
         tools:targetApi="31" >
         <activity
-            android:name=".ChosenGifActivity"
+            android:name=".feature.presentation.ChosenGifActivity"
             android:exported="false"
             android:label="@string/title_activity_chosen_gif"
             android:theme="@style/Theme.GiphyApp" />
         <activity
-            android:name=".MainActivity"
+            android:name=".feature.presentation.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

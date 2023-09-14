@@ -1,4 +1,4 @@
-package com.example.giphyapp
+package com.example.giphyapp.feature.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 

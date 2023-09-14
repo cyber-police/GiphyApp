@@ -1,5 +1,7 @@
-package com.example.giphyapp
+package com.example.giphyapp.feature.data.remote.api
 
+import com.example.giphyapp.feature.data.remote.model.DataDto
+import com.example.giphyapp.feature.data.remote.model.DataObject
 import retrofit2.http.GET
 import retrofit2.http.Query
 

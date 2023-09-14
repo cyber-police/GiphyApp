@@ -27,6 +27,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "GIPHY_API_KEY", "\"5uWKGke21c6B4Z7YnXWhfiIcRY3oqnko\"")
+            buildConfigField("int", "PAGE_SIZE", "50")
+        }
+        debug {
+            buildConfigField("String", "GIPHY_API_KEY", "\"5uWKGke21c6B4Z7YnXWhfiIcRY3oqnko\"")
+            buildConfigField("int", "PAGE_SIZE", "50")
         }
     }
     compileOptions {
@@ -38,6 +44,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -52,6 +59,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("com.google.dagger:hilt-android:2.47")
+    implementation(libs.androidx.swiperefreshlayout)
     kapt("com.google.dagger:hilt-compiler:2.47")
 
     implementation(libs.core.ktx)
